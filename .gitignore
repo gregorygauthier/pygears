@@ -1,0 +1,8 @@
+*.py[co]
+*~
+\#*
+.idea
+.coverage
+.DS_Store
+build
+dist
