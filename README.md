@@ -10,7 +10,7 @@ learn team development, version control, and Python.
 
 PyGears depends explicitly on PyOpenGL and Pyside. These, in turn, have
 dependencies on OpenGL libs (included in most operating systems) and Qt
-libs.
+libs. See the docs for [instructions on setting up the dev environment](https://github.com/vandycs/pygears/blob/master/docs/development.md).
 
 
 ## License
