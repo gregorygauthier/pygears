@@ -6,6 +6,13 @@ and Windows 7 below.
 
 ## Everyone
 
+[Install Git](http://help.github.com/set-up-git-redirect)! Windows users: during installation, make sure
+to select "Run Git and included Unix tools from the Windows Command Path" on the 
+_"Adjusting your PATH environment"_ screen, and "Checkout Windows-style, commit Unix-style line endings"
+on the _"Configuring the line ending conversions"_ screen. Linux users: use your packaging
+tool (i.e. synaptic/apt on Ubuntu, yum on RHEL/Fedora, etc.).
+
+
 After following your OS-specific instructions, follow these instructions to
 set up your SSH keys so you can push code to github.com.
 
@@ -104,9 +111,6 @@ Xcode install, which is Apple's doing anyway).
 
 ### Manual
 
-Download and install [the latest Git](http://code.google.com/p/git-osx-installer/downloads/list?can=3)
-for your OS version.
-
 Download and install [the latest Qt](http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x).
 (Yes, it says "C++ development")
 
@@ -160,28 +164,3 @@ other libraries.
     > easy_install -U PySide
     > python c:\Python27\Scripts\pyside_postinstall.py -install
 
-Download [Git for Windows](http://code.google.com/p/msysgit/downloads/list?can=3).
-Make sure to use the package labelled "Git.*.exe", not "msysGit.*" or
-"PortableGit.*".
-
-__Read the next step before installing Git.__
-
-During the install for Git for Windows, you are given several options for
-how Git will integrate with your computer. Make sure the following options
-are set.
-
-On the _"Adjusting your PATH environment"_ screen, select "Run Git and
-included Unix tools from the Windows Command Path."
-
-The warning means
-that certain commands will be preferred over Windows built-in commands for
-as long as Git is installed, not that they are being replaced. This will only
-affect Windows scripts that use commands such as "find.exe"; if you don't use
-Windows shell scripts, this won't affect you. More importantly, fixing it if
-it turns out to be a problem for you is dead simple; simple remove Git entirely
-or remove the appropriate directory from your [PATH environment variable](http://geekswithblogs.net/renso/archive/2009/10/21/how-to-set-the-windows-path-in-windows-7.aspx).
-
-On the _"Configuring the line ending conversions"_ screen, ensure that
-"Checkout Windows-style, commit Unix-style line endings" is selected, so that
-the POSIX-compliant operating system users don't pull their hair out when you
-commit code.
