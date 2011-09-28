@@ -6,83 +6,19 @@ and Windows 7 below.
 
 ## Everyone
 
-[Install Git](http://help.github.com/set-up-git-redirect)! Windows users: during installation, make sure
-to select "Run Git and included Unix tools from the Windows Command Path" on the 
-_"Adjusting your PATH environment"_ screen, and "Checkout Windows-style, commit Unix-style line endings"
-on the _"Configuring the line ending conversions"_ screen. Linux users: use your packaging
-tool (i.e. synaptic/apt on Ubuntu, yum on RHEL/Fedora, etc.).
+[Install Git](http://help.github.com/set-up-git-redirect)!
 
+Windows users: during installation, make sure
+to select "Run Git and included Unix tools from the Windows Command Path" on the
+_"Adjusting your PATH environment"_ screen, and "Checkout Windows-style, commit
+Unix-style line endings" on the _"Configuring the line ending conversions"_ screen.
 
-After following your OS-specific instructions, follow these instructions to
-set up your SSH keys so you can push code to github.com.
+Linux users: use your packaging tool (i.e. synaptic/apt on Ubuntu,
+yum on RHEL/Fedora, etc.).
 
-Check to see if you already have an private/public key pair.
-
-    $ cat ~/.ssh/id_rsa.pub
-    cat: /home/russ/.ssh/id_rsa.pub: No such file or directory
-
-If the file doesn't exist, execute the following commands to generate a new
-public/private key pair.
-
-    $ ssh-keygen -t rsa -b 1024
-    Generating public/private rsa key pair.
-    Enter file in which to save the key (/home/russ/.ssh/id_rsa):
-    Enter passphrase (empty for no passphrase):
-    Enter same passphrase again:
-    Your identification has been saved in /home/russ/.ssh/id_rsa.
-    Your public key has been saved in /home/russ/.ssh/id_rsa.pub.
-    ...
-
-_NB: the only reason to include a password for this if you think someone that
-has physical access to your computer is going to try pushing code to
-github.com. I recommend leaving the passphrase blank for convenience's sake._
-
-Now, navigate to github.com > Account Settings > [SSH Public Keys](https://github.com/account/ssh)
-and click "Add another public key".
-
-Give it a name useful to you (you're the only one that will see this screen.
-The name of your computer plus the Operating System you're using is probably
-the most straightforward name.
-
-Copy and paste your __public__ key into the box on the github page.
-
-
-### OS X users:
-
-    $ cat ~/.ssh/id_rsa.pub
-
-Copy and paste as normal and you're good.
-
-
-### Linux users:
-
-Same as above, but you'll have to use the right click menu instead of ctrl+c
-to copy.
-
-
-### Windows users:
-
-The Windows shell sucks. Open a text editor, and navigate to your home folder.
-It's the folder with your name on it to the left. Make sure to enable viewing
-hidden files in your Folder Options. Open the .ssh/id_rsa.pub file, then copy
-and paste normally.
-
-
-### Continuing on
-
-Once you save your __public__ key on github, verify it's working with the
-following. (Accept the RSA fingerprint, when prompted)
-
-    $ ssh -T git@github.com
-    Hi <user>! You've successfully authenticated, but GitHub does not provide
-    shell access.
-
-If you see a message about authentication failure ("Permission denied
-(publickey)."), you've got a problem. This will likely happen if you copied
-from the Windows shell, for example. You do not need to generate a new
-public/private key pair. Verify that you have copied the public key (not the
-private key!) and pasted it exactly as shown -- there should be no line breaks
-or leading/trailing whitespace.
+Optionally, follow the instructions on the Github page to set up SSH keys
+for Github. This will allow you to interact with your remote repository without
+constantly re-entering your password.
 
 
 ## Ubuntu 10.10+
@@ -90,7 +26,7 @@ or leading/trailing whitespace.
 Open up a terminal and execute the following.
 
     $ sudo apt-get update
-    $ sudo apt-get python-pip git-core python-opengl python-pyside
+    $ sudo apt-get install python-pip git-core python-opengl python-pyside
 
 Rejoice in the simplicity!
 
@@ -157,10 +93,10 @@ Download and install Nokia's [Qt libraries](http://qt.nokia.com/downloads/downlo
 Make sure to download the "libraries", not the "sdk", or you'll be downloading
 all night. Use the VS 2008 version.
 
+Download and install Nokia's [PySide Qt bindings for Python](http://developer.qt.nokia.com/wiki/PySide_Binaries_Windows).
+Make sure to select the 32-bit version for Python 2.7.
+
 Open a terminal (Start > "cmd.exe") and run the following to install the
-other libraries.
+last library.
 
     > pypm install PyOpenGL
-    > easy_install -U PySide
-    > python c:\Python27\Scripts\pyside_postinstall.py -install
-
