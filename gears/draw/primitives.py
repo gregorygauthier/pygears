@@ -28,7 +28,7 @@ class Circle(object):
 
     """A simple, solid color circle."""
     def __init__(self, radius):
-        """Initialize the Rect with the given width and height.
+        """Initialize the Circle with the given radius
         
         :radius: radius
         """
