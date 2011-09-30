@@ -33,13 +33,16 @@ class Circle(object):
         :radius: radius
         """
         self._radius = radius
+        theta = [2 * pi * i /self.POLYGON_SIDES for i in \
+            range(self.POLYGON_SIDES)]
+        self._vertices = [(self._radius * cos(theta[i]),
+            self._radius * sin(theta[i]), 0) for i in \
+            range(self.POLYGON_SIDES)]
     
     def render(self):
         """Render the circle within the current OpenGL context."""
         GL.glBegin(GL.GL_TRIANGLE_FAN)
         GL.glVertex3f(0, 0, 0)
         for i in range(self.POLYGON_SIDES):
-            theta = 2 * pi * i / self.POLYGON_SIDES
-            GL.glVertex3f(self._radius * cos(theta),
-                self._radius * sin(theta), 0)
+            GL.glVertex3f(*self._vertices[i])
         GL.glEnd()
