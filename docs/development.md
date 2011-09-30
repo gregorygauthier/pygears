@@ -100,3 +100,5 @@ Open a terminal (Start > "cmd.exe") and run the following to install the
 last library.
 
     > pypm install PyOpenGL
+
+Open Control Panel. Go to System > System > Advanced System Settings. Click "Environment Variables" and click "New..." at the bottom. Set the title to "PYTHONPATH", then set the field to the absolute path of your PyGears directory (for example, mine is "C:\Users\russ\dev\pygears"). Click Ok until the System settings window is closed.
