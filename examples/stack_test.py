@@ -4,7 +4,7 @@ from gears import draw
 
 
 def main():
-    node = draw.primitives.Rect(32, 32, 960, 704, (0, 0.3, 0.8))
+    node = draw.primitives.Rect(960, 740)
     app = core.Application([])
     app.window.attach_node(node)
     app.window.resize(1024, 768)
