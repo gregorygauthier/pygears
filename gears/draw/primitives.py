@@ -46,3 +46,23 @@ class Circle(object):
         for i in range(self.POLYGON_SIDES):
             GL.glVertex3f(*self._vertices[i])
         GL.glEnd()
+
+class Triangle(object):
+	"""This is a triangle with one vertex at the origin
+	   and the other two vertices at specified locations"""
+	
+	"""Construct the triangle with the origin and the two
+	given ordered pairs as the three vertices.
+	:vertex1:, :vertex2: the vertices
+	"""
+	
+	def __init__(self, vertex1, vertex2):
+		self._vertex1 = (vertex1[0], vertex1[1], 0)
+		self._vertex2 = (vertex2[0], vertex2[1], 0)
+	
+	def render(self):
+		GL.glBegin(GL.GL_TRIANGLES)
+		GL.glVertex3f(0, 0, 0)
+		GL.glVertex3f(*self._vertex1)
+		GL.glVertex3f(*self._vertex2)
+		GL.glEnd()
