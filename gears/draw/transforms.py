@@ -54,11 +54,14 @@ class Color(object):
     def color(self):
         GL.glBegin(GL_TRIANGLES)
 
-        GL.glColor3f(1.0f, 0.0f, 0.0f)
+        GL.glColor3f(1.0, 0.0, 0.0)
+        self.node._x
 
-        GL.glColor3f(0.0f, 1.0f, 0.0f)
+        GL.glColor3f(0.0, 1.0, 0.0)
+        self.node._y
 
-        GL.glColor3f(0.0f, 0.0f, 1.0f)
+        GL.glColor3f(0.0, 0.0, 1.0)
+        glVertex3f(0.0,  0.0, 0.0)
 
         GL.glEnd()
 
