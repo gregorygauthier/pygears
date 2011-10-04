@@ -42,3 +42,21 @@ class Translation(object):
         # And 'pop' our matrix off of the stack so we don't mess
         # with future rendering calls
         GL.glPopMatrix()
+
+
+class Color(object):
+    """Composite for adding color to a node."""
+    def __init__(self, node):
+    
+        self._node = node
+    
+    def color(self):
+        GL.glBegin(GL_TRIANGLES)
+
+        GL.glColor3f(1.0f, 0.0f, 0.0f)
+
+        GL.glColor3f(0.0f, 1.0f, 0.0f)
+
+        GL.glColor3f(0.0f, 0.0f, 1.0f)
+
+        GL.glEnd()
