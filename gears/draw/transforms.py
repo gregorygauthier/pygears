@@ -15,7 +15,7 @@ on those objects, such as Translation, Rotation, and Scale.
 
 """
 from OpenGL import GL
-
+from math import pi
 
 class Translation(object):
     """Decorator wrapping a node to translate it across the screen."""
@@ -41,4 +41,25 @@ class Translation(object):
         self._node.render()
         # And 'pop' our matrix off of the stack so we don't mess
         # with future rendering calls
+        GL.glPopMatrix()
+
+class Rotation(object):
+    """Decorator wrapping a node to rotate it about the origin."""
+    def __init__(self, node, theta):
+        """Initializes a Rotation to rotate node anti-clockwise
+        through angle theta
+        
+        :node: any object with a render() method
+        :theta: the angle to rotate through, in radians
+        
+        """
+        self._node = node
+        self._theta = theta
+    
+    def render(self):
+        """Renders the wrapped node rotated through the given
+        angle theta"""
+        GL.glPushMatrix()
+        GL.glRotatef(self._theta * 180 / pi, 0, 0, 1)
+        self._node.render()
         GL.glPopMatrix()
