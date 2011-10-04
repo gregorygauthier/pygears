@@ -16,6 +16,7 @@ on those objects, such as Translation, Rotation, and Scale.
 """
 from OpenGL import GL
 from math import pi
+#import pdb
 
 class Translation(object):
     """Decorator wrapping a node to translate it across the screen."""
@@ -58,8 +59,27 @@ class Rotation(object):
     
     def render(self):
         """Renders the wrapped node rotated through the given
-        angle theta"""
+        angle theta, in radians"""
         GL.glPushMatrix()
         GL.glRotatef(self._theta * 180 / pi, 0, 0, 1)
+        self._node.render()
+        GL.glPopMatrix()
+
+class Scaling(object):
+    """Decorator wrapping a node to scale it with respect to the origin
+    
+    Note: I would have called this class Homothety, but that
+    just seems a bit _too_ pretentious. :)"""
+    def __init__(self, node, factor):
+        """Initializes a Scaling to scale the node by the given factor"""
+        self._node = node
+        self._factor = factor
+    
+    def render(self):
+        """Renders the wrapped node scaled by the given factor
+        with respect to the origin"""
+        GL.glPushMatrix()
+        #pdb.set_trace()
+        GL.glScalef(self._factor, self._factor, 1.0)
         self._node.render()
         GL.glPopMatrix()
