@@ -26,23 +26,28 @@ class Rect(object):
 class Circle(object):
     """A simple, solid color circle."""
     # number of sides of the approximating polygon
-    POLYGON_SIDES = 96
+    DEFAULT_POLYGON_SIDES = 96
 
-    def __init__(self, radius):
-        """Initialize the Circle with the given radius"""
+    """A simple, solid color circle."""
+    def __init__(self, radius, polygon_sides = DEFAULT_POLYGON_SIDES):
+        """Initialize the Circle with the given radius."""
         self._radius = radius
-        theta = [2 * pi * i /self.POLYGON_SIDES for i in \
-            range(self.POLYGON_SIDES)]
+        self._polygon_sides = polygon_sides
+        theta = [2 * pi * i /self._polygon_sides for i in \
+            range(self._polygon_sides)]
         self._vertices = [(self._radius * cos(theta[i]),
             self._radius * sin(theta[i]), 0) for i in \
-            range(self.POLYGON_SIDES)]
+            range(self._polygon_sides)]
+    
 
     def render(self):
         """Render the circle within the current OpenGL context."""
         GL.glBegin(GL.GL_TRIANGLE_FAN)
         GL.glVertex3f(0, 0, 0)
-        for i in range(self.POLYGON_SIDES):
+        for i in range(self._polygon_sides):
             GL.glVertex3f(*self._vertices[i])
+        # make sure we draw the last triangle too
+        GL.glVertex3f(*self._vertices[0])
         GL.glEnd()
 
 
@@ -50,7 +55,7 @@ class Triangle(object):
     """A simple, solid color triangle."""
 
     def __init__(self, vertex1, vertex2):
-        """Initialize a triangle.
+        """Initialize the triangle.
 
         Constructs a triangle with the origin and the two
         given ordered pairs as the three vertices.
