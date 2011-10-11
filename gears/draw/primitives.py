@@ -24,27 +24,30 @@ class Rect(object):
 class Circle(object):
     """This constant determines how many sides the circle's approximating
     polygon will have when it is rendered"""
-    POLYGON_SIDES = 96
+    DEFAULT_POLYGON_SIDES = 96
 
     """A simple, solid color circle."""
-    def __init__(self, radius):
+    def __init__(self, radius, polygon_sides = DEFAULT_POLYGON_SIDES):
         """Initialize the Circle with the given radius
         
         :radius: radius
         """
         self._radius = radius
-        theta = [2 * pi * i /self.POLYGON_SIDES for i in \
-            range(self.POLYGON_SIDES)]
+        self._polygon_sides = polygon_sides
+        theta = [2 * pi * i /self._polygon_sides for i in \
+            range(self._polygon_sides)]
         self._vertices = [(self._radius * cos(theta[i]),
             self._radius * sin(theta[i]), 0) for i in \
-            range(self.POLYGON_SIDES)]
+            range(self._polygon_sides)]
     
     def render(self):
         """Render the circle within the current OpenGL context."""
         GL.glBegin(GL.GL_TRIANGLE_FAN)
         GL.glVertex3f(0, 0, 0)
-        for i in range(self.POLYGON_SIDES):
+        for i in range(self._polygon_sides):
             GL.glVertex3f(*self._vertices[i])
+        GL.glVertex3f(*self._vertices[0]) # make sure we draw the last triangle
+                                          # too
         GL.glEnd()
 
 class Triangle(object):
