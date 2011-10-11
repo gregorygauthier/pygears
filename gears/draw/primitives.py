@@ -69,3 +69,12 @@ class Triangle(object):
 		GL.glVertex3f(*self._vertex1)
 		GL.glVertex3f(*self._vertex2)
 		GL.glEnd()
+
+class CompositeNode(object):
+
+    def __init__(self, children):
+        self._children = children
+
+    def render(self):
+        for x in self._children:
+            x.render()
