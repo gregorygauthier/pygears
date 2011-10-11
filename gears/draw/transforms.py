@@ -44,6 +44,24 @@ class Translation(object):
         # with future rendering calls
         GL.glPopMatrix()
 
+
+class Color(object):
+    """Composite for adding color to a node."""
+    def __init__(self, node, color):
+    
+        self._node = node
+        self._color = color
+    
+    def render(self):
+        
+        GL.glPushAttrib(GL.GL_CURRENT_BIT)
+        
+        GL.glColor3f(self._color[0], self._color[1], self._color[2])
+
+        self._node.render()
+
+        GL.glPopAttrib()
+
 class Rotation(object):
     """Decorator wrapping a node to rotate it about the origin."""
     def __init__(self, node, theta):
