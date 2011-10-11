@@ -47,23 +47,20 @@ class Translation(object):
 
 class Color(object):
     """Composite for adding color to a node."""
-    def __init__(self, node):
+    def __init__(self, node, color):
     
         self._node = node
+        self._color = color
     
-    def color(self):
-        GL.glBegin(GL_TRIANGLES)
+    def render(self):
+        
+        GL.glPushAttrib(GL.GL_CURRENT_BIT)
+        
+        GL.glColor3f(self._color[0], self._color[1], self._color[2])
 
-        GL.glColor3f(1.0, 0.0, 0.0)
-        self.node._x
+        self._node.render()
 
-        GL.glColor3f(0.0, 1.0, 0.0)
-        self.node._y
-
-        GL.glColor3f(0.0, 0.0, 1.0)
-        glVertex3f(0.0,  0.0, 0.0)
-
-        GL.glEnd()
+        GL.glPopAttrib()
 
 class Rotation(object):
     """Decorator wrapping a node to rotate it about the origin."""
