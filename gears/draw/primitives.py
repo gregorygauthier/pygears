@@ -14,9 +14,9 @@ class Node(object):
     def pre_render(self):
         GL.glPushMatrix()
         GL.glPushAttrib(GL.GL_CURRENT_BIT)
+        GL.glTranslatef(self.x, self.y, 0)
         GL.glRotatef(self.theta*180/pi, 0, 0, 1)
         GL.glScalef(self.scale, self.scale, 1.0)
-        GL.glTranslatef(self.x, self.y, 0)
         GL.glColor3f(*self.color)
 
     def plot(self):
