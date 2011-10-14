@@ -53,24 +53,26 @@ class Rect(Node):
         GL.glEnd()
 
 
-class Circle(object):
+class Circle(Node):
     """A simple, solid color circle."""
     # number of sides of the approximating polygon
     DEFAULT_POLYGON_SIDES = 96
 
     """A simple, solid color circle."""
-    def __init__(self, radius, polygon_sides = DEFAULT_POLYGON_SIDES):
+    def __init__(self, radius, polygon_sides = DEFAULT_POLYGON_SIDES,
+        **kwargs):
         """Initialize the Circle with the given radius."""
+        super(Circle, self).__init__(**kwargs)
         self._radius = radius
         self._polygon_sides = polygon_sides
-        theta = [2 * pi * i /self._polygon_sides for i in \
+        phi = [2 * pi * i /self._polygon_sides for i in \
             range(self._polygon_sides)]
-        self._vertices = [(self._radius * cos(theta[i]),
-            self._radius * sin(theta[i]), 0) for i in \
+        self._vertices = [(self._radius * cos(phi[i]),
+            self._radius * sin(phi[i]), 0) for i in \
             range(self._polygon_sides)]
     
 
-    def render(self):
+    def plot(self):
         """Render the circle within the current OpenGL context."""
         GL.glBegin(GL.GL_TRIANGLE_FAN)
         GL.glVertex3f(0, 0, 0)
