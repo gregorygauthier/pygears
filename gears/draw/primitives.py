@@ -3,17 +3,47 @@ from OpenGL import GL
 from math import sin, cos, pi
 
 
-class Rect(object):
+class Node(object):
+    def __init__(self, x=0, y=0, theta=0.0, scale=1.0, color=(1,1,1)):
+        self.x = x
+        self.y = y
+        self.theta = theta
+        self.scale = scale
+        self.color = color
+
+    def pre_render(self):
+        GL.glPushMatrix()
+        GL.glPushAttrib(GL.GL_CURRENT_BIT)
+        GL.glRotatef(self.theta*180/pi, 0, 0, 1)
+        GL.glScalef(self.scale, self.scale, 1.0)
+        GL.glTranslatef(self.x, self.y, 0)
+        GL.glColor3f(*self.color)
+
+    def plot(self):
+        pass
+
+    def post_render(self):
+        GL.glPopAttrib()
+        GL.glPopMatrix()
+
+    def render(self):
+        self.pre_render()
+        self.plot()
+        self.post_render()
+
+
+class Rect(Node):
     """A simple, solid color rectangle."""
-    def __init__(self, width, height):
+    def __init__(self, width, height, **kwargs):
         """Initialize the Rect with the given width and height.
 
         :width:, :height: dimension
         """
+        super(Rect, self).__init__(**kwargs)
         self._width = width
         self._height = height
 
-    def render(self):
+    def plot(self):
         """Render the rectangle within the current OpenGL context."""
         GL.glBegin(GL.GL_QUADS)
         GL.glVertex3f(0, 0, 0)

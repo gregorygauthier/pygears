@@ -5,13 +5,10 @@ from math import pi
 
 def main():
     node = draw.primitives.Rect(300, 200)
-    # node = draw.primitives.Circle(500)
-    node = draw.transforms.Rotation(node, pi/4)
-    node = draw.transforms.Translation(node, 200, 200)
-    node2 = draw.primitives.Rect(100, 200)
+    node.x = 300
+    node.theta = 1.5
     app = core.Application([])
     app.window.attach_node(node)
-    app.window.attach_node(node2)
     app.window.resize(1024, 768)
     app.run()
 
