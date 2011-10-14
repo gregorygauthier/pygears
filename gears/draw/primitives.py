@@ -81,10 +81,10 @@ class Circle(object):
         GL.glEnd()
 
 
-class Triangle(object):
+class Triangle(Node):
     """A simple, solid color triangle."""
 
-    def __init__(self, vertex1, vertex2):
+    def __init__(self, vertex1, vertex2, **kwargs):
         """Initialize the triangle.
 
         Constructs a triangle with the origin and the two
@@ -92,10 +92,12 @@ class Triangle(object):
         :vertex1:, :vertex2: the vertices
 
         """
+        super(Triangle, self).__init__(**kwargs)
         self._vertex1 = (vertex1[0], vertex1[1], 0)
         self._vertex2 = (vertex2[0], vertex2[1], 0)
+        
 
-    def render(self):
+    def plot(self):
         GL.glBegin(GL.GL_TRIANGLES)
         GL.glVertex3f(0, 0, 0)
         GL.glVertex3f(*self._vertex1)
