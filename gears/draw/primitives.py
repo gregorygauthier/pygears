@@ -103,8 +103,9 @@ class Triangle(object):
         GL.glEnd()
 
 
-class CompositeNode(object):
-    def __init__(self, children):
+class CompositeNode(Node):
+    def __init__(self, children, **kwargs):
+        super(CompositeNode, self).__init__(**kwargs)
         self._children = children
 
     def render(self):
