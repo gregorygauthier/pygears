@@ -1,5 +1,6 @@
 from OpenGL import GL, GLU
 from PySide import QtOpenGL
+from gears.draw import primitives
 
 
 class Window(QtOpenGL.QGLWidget):
@@ -7,11 +8,11 @@ class Window(QtOpenGL.QGLWidget):
     def __init__(self, *args, **kwargs):
         """Initialize the window."""
         super(Window, self).__init__(*args, **kwargs)
-        self._nodes = []
+        self._scene = primitives.CompositeNode()
 
     def attach_node(self, node):
         """Add the given node to the nodes to render every frame."""
-        self._nodes.append(node)
+        self._scene.append(node)
 
     def initializeGL(self):
         """Set up OpenGL state for 2D rendering."""
@@ -27,8 +28,7 @@ class Window(QtOpenGL.QGLWidget):
         """Render the :scene_graph: to the Window."""
         GL.glClear(GL.GL_COLOR_BUFFER_BIT)
         GL.glLoadIdentity()
-        for node in self._nodes:
-            node.render()
+        self._scene.render()
 
     def resizeGL(self, width, height):
         """Resize the OpenGL viewport to reflect the given window dimensions."""

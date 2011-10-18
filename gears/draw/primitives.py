@@ -108,10 +108,15 @@ class Triangle(Node):
 
 
 class CompositeNode(Node):
-    def __init__(self, children, **kwargs):
+    def __init__(self, *children, **kwargs):
         super(CompositeNode, self).__init__(**kwargs)
-        self._children = children
+        self._children = list(children)
+
+    def append(self, *nodes):
+        """Attach the given nodes to the top of the composite."""
+        self._children.extend(list(nodes))
 
     def render(self):
+        """Render each subtree of the composite."""
         for x in self._children:
             x.render()
