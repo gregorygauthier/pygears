@@ -58,3 +58,53 @@ class Application(QtGui.QApplication):
     def update(self, dt):
         """Update the application window."""
         self.window.updateGL()
+
+class StateStack(object):
+    """Implement a state stack"""
+    
+    """Note that _contents is a stack implemented as a
+    list:  _contents[0] is the bottom element;
+    _contents[-1] is the top element"""
+    
+    def __init__(self):
+        """Create an empty StateStack"""
+        self._contents = []
+    
+    def push(self, state):
+        """Push the given state onto the stack.
+        Also calls the load() method of the new element
+        and the pause(state) method of the element
+        that was on top prior to this method call"""
+        
+        self.top().pause(state)
+        self._contents.append(state)
+        state.load()
+    
+    def pop(self):
+        """Pops the topmost state onto the stack
+        Also calls the unload() method of the top element
+        and the unpause() method of the element below"""
+        
+        state = self._contents.pop()
+        state.unload()
+        self.top.unpause()
+        return state
+    
+    def is_empty(self):
+        """Returns true if the stack is empty; false otherwise"""
+        return len(self._contents) == 0
+    
+    def clear(self):
+        """Iteratively pops every element off the stack
+        Does nothing (but does not fail) if the stack is already
+        empty)"""
+        
+        while not self.is_empty():
+            self.pop()
+    
+    def top(self):
+        """Returns a reference to the topmost element.
+        Does not affect the stack in any way or fire any
+        (un)load or (un)pause events"""
+        
+        return self._contents[-1]
