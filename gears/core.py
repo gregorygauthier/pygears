@@ -123,3 +123,10 @@ class StateStack(object):
         """
 
         return self._contents[-1]
+    
+    def render(self):
+        """Render the states in the stack according to
+        their scene's render() method."""
+        
+        for s in self._contents:
+            s.scene.render()
