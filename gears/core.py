@@ -124,26 +124,3 @@ class StateStack(object):
 
         return self._contents[-1]
 
-
-class key_map (object):
-
-    def __init__(self):
-        self.key_status_map{}
-        self.dirty_keys{}
-    
-    def press(key):
-        self.key_status_map[key] |= 0b110
-        self.dirty_keys.add(key())
-        
-    def release(key):
-        self.key_status_map[key] &= 0b101
-        self.dirty_keys.add(key())
-
-    def reset():
-        for key in self.key_status_map:
-            del self.key_status_map[key]
-        for k in self.dirty_keys:
-            del self.dirty_keys[k]
-
-    def get(key):
-        return self.key_status_map[key]
