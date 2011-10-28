@@ -38,3 +38,30 @@ class Window(QtOpenGL.QGLWidget):
         GLU.gluOrtho2D(0, width, 0, height)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
+
+
+class KeyMap(object):
+    def __init__(self):
+        self.key_status_map = {}
+        self.dirty_keys = set()
+
+    def press(self, key):
+        bits = self.key_status_map.get(key, 0)
+        bits |= 0b110
+        self.key_status_map[key] = bits
+        self.dirty_keys.add(key)
+
+    def release(self, key):
+        bits = self.key_status_map.get(key, 0)
+        bits |= 0b001
+        bits &= 0b101
+        self.key_status_map[key] = bits
+        self.dirty_keys.add(key)
+
+    def reset(self):
+        for k in self.dirty_keys:
+            key_status_map[k] &= 0b010
+        self.dirty_keys.clear()
+
+    def get(self, key):
+        return self.key_status_map.get(key, 0)
