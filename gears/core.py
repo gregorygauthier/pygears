@@ -15,7 +15,8 @@ class Application(QtGui.QApplication):
         super(Application, self).__init__(args)
         self.states = StateStack()
         self.states.push(initial_state)
-        self.window = draw.window.Window()
+        self._km = draw.window.KeyMap()
+        self.window = draw.window.Window(self._km)
         self._render_clock = utils.Clock(16, self.update)
 
     def run(self):
@@ -26,8 +27,25 @@ class Application(QtGui.QApplication):
     def update(self, dt):
         """Update the application window."""
         self.window.draw(self.states)
-        self.states.top().update(dt, self)
+        if self.states.is_empty():
+            self.quit()
+        else:
+            self.states.top().update(dt, self)
 
+    def isPressed(self, key):
+        if self._km.get(key) & 0b100 == 0:
+            return False
+        return True
+    
+    def isHeld(self, key):
+        if self._km.get(key) & 0b010 == 0:
+            return False
+        return True
+    
+    def isReleased(self, key):
+        if self._km.get(key) & 0b001 == 0:
+            return False
+        return True
 
 class StateStack(object):
     """Implement a state stack.

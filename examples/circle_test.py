@@ -1,4 +1,5 @@
 """Simple demo primarily for verifying the development environment."""
+from PySide import QtCore
 from gears import core
 from gears import draw
 from gears import utils
@@ -13,6 +14,8 @@ class AnimateState(core.State):
         self.node.render()
     
     def update(self, dt, app):
+        if app.isPressed(QtCore.Qt.Key_Q):
+            app.states.pop()
         self.node.x += self.VELOCITY * dt
         self.node.x %= 1024
         self.node.y += self.VELOCITY * dt
