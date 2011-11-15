@@ -8,9 +8,13 @@ class Application(QtGui.QApplication):
     Application orchestrates a Window with a QApplication.
 
     """
-    def __init__(self, args):
+    
+    
+    def __init__(self, initial_state, args):
         """Initialize the application."""
         super(Application, self).__init__(args)
+        self.states = StateStack()
+        self.states.push(initial_state)
         self.window = draw.window.Window()
         self._render_clock = utils.Clock(16, self.update)
 
@@ -21,7 +25,8 @@ class Application(QtGui.QApplication):
 
     def update(self, dt):
         """Update the application window."""
-        self.window.updateGL()
+        self.window.draw(self.states)
+        self.states.top().update(dt, self)
 
 
 class StateStack(object):

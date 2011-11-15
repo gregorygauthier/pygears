@@ -5,14 +5,6 @@ from gears.draw import primitives
 
 class Window(QtOpenGL.QGLWidget):
     """Desktop window filled with an OpenGL framebuffer."""
-    def __init__(self, *args, **kwargs):
-        """Initialize the window."""
-        super(Window, self).__init__(*args, **kwargs)
-        self._scene = primitives.CompositeNode()
-
-    def attach_node(self, node):
-        """Add the given node to the nodes to render every frame."""
-        self._scene.append(node)
 
     def initializeGL(self):
         """Set up OpenGL state for 2D rendering."""
@@ -28,7 +20,7 @@ class Window(QtOpenGL.QGLWidget):
         """Render the :scene_graph: to the Window."""
         GL.glClear(GL.GL_COLOR_BUFFER_BIT)
         GL.glLoadIdentity()
-        self._scene.render()
+        self._node.render()
 
     def resizeGL(self, width, height):
         """Resize the OpenGL viewport to reflect the given window dimensions."""
@@ -38,7 +30,11 @@ class Window(QtOpenGL.QGLWidget):
         GLU.gluOrtho2D(0, width, 0, height)
         GL.glMatrixMode(GL.GL_MODELVIEW)
         GL.glLoadIdentity()
-
+    
+    def draw(self, node):
+        self._node = node
+        self.updateGL()
+        
 
 class KeyMap(object):
     def __init__(self):
