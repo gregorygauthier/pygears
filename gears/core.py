@@ -47,11 +47,13 @@ class StateStack(object):
         """
 
         try:
-            self.top().pause(state)
+            t = self.top()
+            t.pause(state)
         except IndexError:
+            t = None
             pass
         self._contents.append(state)
-        state.load()
+        state.load(t)
 
     def pop(self):
         """Pop the topmost state onto the stack.
@@ -99,4 +101,39 @@ class StateStack(object):
         their scene's render() method."""
         
         for s in self._contents:
-            s.scene.render()
+            s.render()
+
+"""Generic State class.
+This passes whenever its six methods are called; subclasses
+should override the methods they need to do.
+"""
+class State(object):
+    """Pause this state on account of otherstate
+    being popped over this state in the stack."""
+    def pause(self, otherstate):
+        pass
+    
+    """Unpause this state due to this state becoming
+    the topmost state of the stack."""
+    def unpause(self):
+        pass
+    
+    """Load this state: called when it is pushed onto the stack.
+    otherstate is the state that was on top just before this state was
+    pushed."""
+    def load(self, otherstate):
+        pass
+    
+    """Unload this state: called when it is popped off the stack."""
+    def unload(self):
+        pass
+    
+    """Render this state."""
+    def render(self):
+        pass
+    
+    """Update this state.  dt is an amount of time that has passed
+    since the last update call (in seconds); app is a reference
+    to the current application."""
+    def update(self, dt, app):
+        pass
