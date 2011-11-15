@@ -20,7 +20,7 @@ class AnimateState(core.State):
 
 def main():
     app = core.Application(AnimateState(), [])
-    app.window.resize(1024, 768)
+    app.window.setFixedSize(1024, 768)
     app.run()
 
 
