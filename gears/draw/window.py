@@ -5,6 +5,10 @@ from gears.draw import primitives
 
 class Window(QtOpenGL.QGLWidget):
     """Desktop window filled with an OpenGL framebuffer."""
+    def __init__(self, km, *args, **kwargs):
+        """Initialize the window."""
+        super(Window, self).__init__(*args, **kwargs)
+        self._km = km
 
     def initializeGL(self):
         """Set up OpenGL state for 2D rendering."""
@@ -34,6 +38,12 @@ class Window(QtOpenGL.QGLWidget):
     def draw(self, node):
         self._node = node
         self.updateGL()
+    
+    def keyPressEvent(self, e):
+        self._km.press(e.key())
+    
+    def keyReleaseEvent(self, e):
+        self._km.release(e.key())
         
 
 class KeyMap(object):
