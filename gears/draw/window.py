@@ -66,7 +66,7 @@ class KeyMap(object):
 
     def reset(self):
         for k in self.dirty_keys:
-            key_status_map[k] &= 0b010
+            self.key_status_map[k] &= 0b010
         self.dirty_keys.clear()
 
     def get(self, key):

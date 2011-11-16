@@ -31,6 +31,7 @@ class Application(QtGui.QApplication):
             self.quit()
         else:
             self.states.top().update(dt, self)
+        self._km.reset()
 
     def isPressed(self, key):
         if self._km.get(key) & 0b100 == 0:
